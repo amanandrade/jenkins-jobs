@@ -1,14 +1,20 @@
 node {
+    // def server = Artifactory.server "SERVER_ID"
+
     stage('SCM'){
+        echo 'Feating on source control'
         checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/amanandrade/jenkins-jobs/']]])
     }
     stage('Build'){
         echo 'Building...'
+        sh "mkdir -p AWS-backends/backend-DES"
+        writeFile file: "AWS-backends/backend-DES/get-id-microsservico.json" , text: "{ "passthroughtBehavior":"when_no_match"}"
     }
     stage('Test'){
         echo 'Testing...'
     }
     stage('Deploy'){
         echo 'Deploying...'
+        archiveArtifacts artifacts: "AWS-backends/backend-DES/*.json"
     }
 }
