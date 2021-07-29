@@ -8,7 +8,7 @@ node {
     stage('Build'){
         echo 'Building...'
         sh "mkdir -p AWS-backends/backend-DES"
-        writeFile file: "AWS-backends/backend-DES/get-id-microsservico.json" , text: "{ "passthroughtBehavior":"when_no_match"}"
+        writeFile file: "AWS-backends/backend-DES/get-id-microsservico.json" , text: "{}"
     }
     stage('Test'){
         echo 'Testing...'
